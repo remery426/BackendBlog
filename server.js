@@ -54,7 +54,7 @@ app.post('/login',function(req, res, next){
 
 app.post('/comment',async(req,res)=>{
     try{
-      let comment = new Comment({body:req.body.body})
+      let comment = new Comment({body:req.body.body,author:req.body.user})
       comment.save()
       /*let user = await User.findById(req.user.id)
       user.comments.push(comment)
