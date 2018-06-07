@@ -53,21 +53,16 @@ app.post('/login',function(req, res, next){
 });
 
 app.post('/comment',async(req,res)=>{
-  if(!req.isAuthenticated()){
-    res.redirect('/login')
-  }
-  else{
     try{
-      let comment = new Comment({body:req.body.body,user:req.user.id,author:req.user.username})
-      await comment.save()
+      let comment = new Comment({body:req.body.body})
+      /*await comment.save()
       let user = await User.findById(req.user.id)
       user.comments.push(comment)
-      await user.save()
+      await user.save()*/
       res.send(comment)
     }catch(err){
       res.send(err)
     }
-  }
 });
 app.get('/comments',async (req,res)=>{
   let comments = await Comment.find();
