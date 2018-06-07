@@ -5,7 +5,9 @@ const session = require("express-session");
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const requirelogin = require('./requireLogin');
-
+var cors =require("cors")
+cors({credentials: true, origin: "*"});
+app.use(cors());
 require('./models/User');
 require('./models/Comment');
 const Comment = mongoose.model('Comment');

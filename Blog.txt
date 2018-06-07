@@ -1,7 +1,34 @@
-Welcome to my blog post about this blog app.  I'm going to start by talking about some of the technology I chose and I why I decided to do chose it. For the front end I decided to use React.
+Welcome to my blog post about this blog app.  I'm going to start by talking about some of the technology I chose and I why I decided to do choose it. For the front end I decided to use React.
 React seemed like a good a choice for this particular project because it is a relatively small project. React is a little easier to get up and running with than angular.
 React generally isn't as opinionated as other front end frameworks which can be a bit of double edged sword for large teams in production environments
 but for a small personal project is a non issue.  For the backend I decided to use Express and Mongo.  I choose this, for a few reasons. First of all I write backend
 JS everyday and I just like it.  Second our data doesn't involve too many relationships for a nosql db to be a solid choice. A larger blog app with more functionality
 could end up  having a lot more relationships users can view posts they like, reply to comments, follow specific bloggers etc.. This might make a relational database a better
-choice but for the our needs mongo will work quite nicely. With that in mind let's dive into some code
+choice but for the our needs mongo will work quite nicely. With that in mind let's dive into some code.4
+
+I started by building and deploying a backend api to hold the data. Let's start by looking at some routes.
+
+get '/user' allows use to get the user that is currently logged in.  I decided that I wanted users
+to have to create an account to post on my blog. This route gets the logged in user. Pretty straightforward.
+
+post '/login' this route both logs in and creates the user if the user does not already exist. Normally I would
+create separate login and register routes/logic for a few reasons, the most obvious being users might inadvertently
+create new accounts if they mistype their username. I just combined the functions in the interest of time. I use a
+third party service called passport for authentication.  We won't dive too much into that but within this passport function either hash the password
+and create a new logged in user or find a user by username and see if the passwords match, then put the user in session based on the result/
+
+post '/comment' creates a comment then adds that comment to the signed in users profile. Currently adding comments to our user model
+doesn't do anything for us, but if we wanted to lookup comments by user later this would save us sometime.  Normally the comment would have a blog post associated
+with it as well but given that there is only going to be one post in our current blog.  We will just be listing all comments. If we wanted to expand the functionality
+of the blog, this would be the first thing to change
+
+get '/comments' just grabs all of the comments for us. Not much to say about this one.
+
+Quickly lets take a look at the models
+
+The user model is pretty straightforward it has a username, password and array to store comments the user has made.
+
+The comment model is also relatively straightforward I decided to include both a userid("user") and username("author"). This allows us to get the user's name to display with the comment
+without looking it up in mongo but also let's us have the id if we want the entire user object at some point
+
+Once I was finished I deployed the api to heroku and dove into the front-end.
