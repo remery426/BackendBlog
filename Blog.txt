@@ -1,0 +1,7 @@
+Welcome to my blog post about this blog app.  I'm going to start by talking about some of the technology I chose and I why I decided to do chose it. For the front end I decided to use React.
+React seemed like a good a choice for this particular project because it is a relatively small project. React is a little easier to get up and running with than angular.
+React generally isn't as opinionated as other front end frameworks which can be a bit of double edged sword for large teams in production environments
+but for a small personal project is a non issue.  For the backend I decided to use Express and Mongo.  I choose this, for a few reasons. First of all I write backend
+JS everyday and I just like it.  Second our data doesn't involve too many relationships for a nosql db to be a solid choice. A larger blog app with more functionality
+could end up  having a lot more relationships users can view posts they like, reply to comments, follow specific bloggers etc.. This might make a relational database a better
+choice but for the our needs mongo will work quite nicely. With that in mind let's dive into some code
