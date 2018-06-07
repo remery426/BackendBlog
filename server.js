@@ -34,7 +34,23 @@ app.get('/',(req,res)=>{
 app.get("/user",(req,res)=>{
   res.send(req.user)
 })
-app.post('/login',passport.authenticate('local',{successRedirect:"/success",success:"/failure"}));
+app.post('/login',function(req, res, next){
+  passport.authenticate('local',function(err, user, info) {
+    if (err) {
+      return res.send(err);
+    }
+    if (!user) {
+      return res.send(err)
+    }
+    req.login(user, function(err) {
+      if (err) {
+        return res.send(err);
+      } else {
+        return res.send(user);
+      }
+    });
+  })(req, res, next);
+});
 
 app.post('/comment',async(req,res)=>{
   if(!req.isAuthenticated()){
