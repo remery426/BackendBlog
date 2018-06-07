@@ -50,8 +50,11 @@ app.post('/comment',async(req,res)=>{
       res.send(err)
     }
   }
+});
+app.get('/comments',async (req,res)=>{
+  let comments = await Comment.find();
+  res.send(comments)
 })
-
 
 app.listen(PORT,()=>{
   console.log("App running on " + PORT)
